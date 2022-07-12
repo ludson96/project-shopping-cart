@@ -9,11 +9,8 @@ const infoCarrinho = {
   salePrice: price,
   image: thumbnail, 
 };
-console.log(infoCarrinho);
 return infoCarrinho;
 };
-
-
 
 if (typeof module !== 'undefined') {
   module.exports = {

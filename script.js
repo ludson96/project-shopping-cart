@@ -25,7 +25,6 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 const addCarrinho = async (e) => {
   const valorId = e.target.previousSibling.previousSibling.previousSibling;
   const valorCorreto = valorId.innerText;
-  console.log(valorCorreto);
   const localCarrinho = document.querySelector('.cart__items');
   localCarrinho.appendChild(createCartItemElement(await fetchItem(valorCorreto)));
  };
@@ -58,10 +57,5 @@ const createProductListing = async () => {
 createProductListing();
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
-
- // const btnAdd = document.getElementsByClassName('item__add');
-// for (let index = 0; index < btnAdd.length; index += 1) {
-//   btnAdd[index].addEventListener('click', addCarrinho);
-// }
 
 window.onload = () => { };
