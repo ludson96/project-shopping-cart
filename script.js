@@ -13,10 +13,24 @@ const createCustomElement = (element, className, innerText) => {
   e.innerText = innerText;
   return e;
 };
+const sumSubTotal = () => {
+  const li = document.querySelectorAll('li');
+  // if (li) {
+  let total = 0;
+  for (let index = 0; index < li.length; index += 1) {
+    const numero = li[index].innerText.split('$')[1];
+    const valorUnitario = parseFloat(numero);
+    total += valorUnitario;
+  }
+  const getsubTotal = document.querySelector('.total-price');
+  getsubTotal.innerText = total;
+  // }
+};
 
 const cartItemClickListener = (e) => {
   e.target.remove();
   saveCartItems();
+  sumSubTotal();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -27,19 +41,22 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-const keepRemove = () => {
-  const li = document.querySelectorAll('li');
-  for (let index = 0; index < li.length; index += 1) {
-    li[index].addEventListener('click', cartItemClickListener);
-  }
-};
-
 const addCarrinho = async (e) => {
   const valorId = e.target.previousSibling.previousSibling.previousSibling;
   const valorCorreto = valorId.innerText;
   const localCarrinho = document.querySelector('.cart__items');
-  localCarrinho.appendChild(createCartItemElement(await fetchItem(valorCorreto)));
+  const item = await fetchItem(valorCorreto);
+  localCarrinho.appendChild(createCartItemElement(item));
   saveCartItems();
+  sumSubTotal();
+};
+
+const keepRemove = () => {
+  const li = document.querySelectorAll('li');
+  for (let index = 0; index < li.length; index += 1) {
+    li[index].addEventListener('click', cartItemClickListener);
+    // li[index].addEventListener('click', subtracao);
+  }
 };
 
 const createProductItemElement = ({ sku, name, image }) => {
@@ -74,4 +91,5 @@ window.onload = () => {
   createProductListing();
   ol.innerHTML = getSavedCartItems();
   keepRemove();
+  sumSubTotal();
 };
