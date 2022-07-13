@@ -1,4 +1,4 @@
-// const { getSavedCartItems } = require('./helpers/getSavedCartItems');
+const ol = document.querySelector('ol');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -64,4 +64,4 @@ createProductListing();
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-// window.onload = () => { saveCartItems(), getSavedCartItems() }
+window.onload = () => { ol.innerHTML = getSavedCartItems(); };
