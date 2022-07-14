@@ -85,7 +85,16 @@ const createProductListing = async () => {
   });
 };
 
-const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+// const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+
+const btn = document.querySelector('.empty-cart');
+const clearCart = () => {
+  const getLI = document.querySelectorAll('li');
+  getLI.forEach((e) => e.remove());
+  sumSubTotal();
+};
+
+btn.addEventListener('click', clearCart);
 
 window.onload = () => {
   createProductListing();
