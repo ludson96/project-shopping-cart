@@ -72,7 +72,7 @@ const createProductItemElement = ({ sku, name, image }) => {
   return section;
 };
 
-const antesAPI = (e) => {
+const antesAPI = () => {
   const div = document.createElement('div');
   div.className = 'loading';
   div.innerHTML = 'carregando...';
