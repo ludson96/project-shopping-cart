@@ -1,4 +1,5 @@
 const ol = document.querySelector('ol');
+const btn = document.querySelector('.empty-cart');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -13,23 +14,18 @@ const createCustomElement = (element, className, innerText) => {
   e.innerText = innerText;
   return e;
 };
+
 const sumSubTotal = () => {
   const li = document.querySelectorAll('li');
-  // if (li) {
   let total = 0;
-  for (let index = 0; index < li.length; index += 1) {
-    const numero = li[index].innerText.split('$')[1];
-    const valorUnitario = parseFloat(numero);
-    total += valorUnitario;
-  }
+  li.forEach((e) => { total += parseFloat(e.innerText.split('$')[1]); });
   const getsubTotal = document.querySelector('.total-price');
-  getsubTotal.innerText = total;
-  // }
+  getsubTotal.innerHTML = `${total}`;
 };
 
-const cartItemClickListener = (e) => {
-  e.target.remove();
-  saveCartItems();
+const cartItemClickListener = ({ target }) => {
+  target.remove();
+  saveCartItems(ol.innerHTML);
   sumSubTotal();
 };
 
@@ -41,22 +37,22 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-const addCarrinho = async (e) => {
-  const valorId = e.target.previousSibling.previousSibling.previousSibling;
-  const valorCorreto = valorId.innerText;
+const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+
+const addCarrinho = async ({ target }) => {
   const localCarrinho = document.querySelector('.cart__items');
-  const item = await fetchItem(valorCorreto);
-  localCarrinho.appendChild(createCartItemElement(item));
-  saveCartItems();
+  const element = target.parentNode;
+  const data = await fetchItem(getSkuFromProductItem(element));
+  const { id, title, price, thumbnail } = data;
+  const infoCarrinho = { sku: id, name: title, salePrice: price, image: thumbnail };
+  localCarrinho.appendChild(createCartItemElement(infoCarrinho));
+  saveCartItems(ol.innerHTML);
   sumSubTotal();
 };
 
 const keepRemove = () => {
   const li = document.querySelectorAll('li');
-  for (let index = 0; index < li.length; index += 1) {
-    li[index].addEventListener('click', cartItemClickListener);
-    // li[index].addEventListener('click', subtracao);
-  }
+  li.forEach((e) => e.addEventListener('click', cartItemClickListener));
 };
 
 const createProductItemElement = ({ sku, name, image }) => {
@@ -76,18 +72,15 @@ const antesAPI = () => {
   const div = document.createElement('div');
   div.className = 'loading';
   div.innerHTML = 'carregando...';
-  const body = document.querySelector('body');
-  body.appendChild(div);
+  const container = document.querySelector('.container');
+  container.appendChild(div);
 };
 
-const aposAPI = () => {
-  const loading = document.querySelector('.loading');
-  loading.remove();
-};
+const aposAPI = () => document.querySelector('.loading').remove();
 
 const createProductListing = async () => {
   antesAPI();
-  const results = await fetchProducts('computador');
+  const { results } = await fetchProducts('computador');
   results.forEach(({ id, title, thumbnail }) => {
     const item = {
       sku: id,
@@ -100,9 +93,6 @@ const createProductListing = async () => {
   aposAPI();
 };
 
-// const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
-
-const btn = document.querySelector('.empty-cart');
 const clearCart = () => {
   const getLI = document.querySelectorAll('li');
   getLI.forEach((e) => e.remove());
