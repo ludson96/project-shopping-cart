@@ -10,8 +10,8 @@
 
 - Este é um projeto desenvolvido para me ajudar a aprender a desenvolver sobre requisições de `API`, funções assíncronas e `TDD`;
 - Este é um projeto desenvolvido para praticar `HTML`, `CSS`, `JavaScript` e testes com `Jest` e `Mocha`;
-- Primeiro teste utilizando `Mocha`;
-- Primeiro teste utilizando `TDD`;
+- Primeiro projeto utilizando `Mocha`;
+- Primeiro projeto utilizando `TDD`;
 - Utilizei a extensão [Live Server][Live Server] no VSCode para visualizar as alterações em tempo real.
 
 ## Linguagens e ferramentas usadas
