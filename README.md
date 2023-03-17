@@ -2,7 +2,7 @@
 
 # :construction: Estilização em desenvolvimento ! :construction:
 
-## Módulo: FUNDAMENTOS
+## Módulo: Front-end
 
  Repositório possuí projeto desenvolvido no período que estive na **Trybe**, abordando sobre requisições de API, funções de forma assíncronas, TDD.
 
