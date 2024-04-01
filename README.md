@@ -1,4 +1,4 @@
-# Repositório do projeto Carrinho de Compras
+# Repositório do projeto Carrinho de Compras 🛒
 
 # :construction: Estilização em desenvolvimento ! :construction:
 
